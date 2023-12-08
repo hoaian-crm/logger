@@ -1,0 +1,3 @@
+[submodule "src/prototypes"]
+	path = src/prototypes
+	url = https://github.com/hoaian-crm/prototypes.git

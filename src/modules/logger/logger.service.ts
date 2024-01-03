@@ -41,10 +41,14 @@ export class LoggerService {
     );
   }
 
-  async handleError(error: IMessage | Error | QueryFailedError) {
+  async handleError(
+    error: IMessage | Error | QueryFailedError,
+    metadata?: { field: string },
+  ) {
     if (error instanceof QueryFailedError) {
       // Database error
-      Response.badRequestThrow(await this.getMessage(error.driverError.code));
+      const message = await this.getMessage(error.driverError.code);
+      Response.badRequestThrow({ ...message, ...metadata });
     }
 
     if ((error as IMessage).code) Response.badRequestThrow(error as IMessage);

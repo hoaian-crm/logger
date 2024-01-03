@@ -47,7 +47,7 @@ export const Messages = {
     code: 106,
     description: 'Must be an email',
   },
-  alreadyExists: {
+  "23505": {
     code: 23505,
     description: "Already exists"
   }

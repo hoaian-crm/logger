@@ -7,6 +7,7 @@ import { IMessage, Response } from 'crm-prototypes';
 import { RedisService } from 'crm-redis-client';
 import { Messages } from '../../config/messages';
 import { MattermostService } from '../matttermost/mattermost.service';
+import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class LoggerService {
@@ -17,6 +18,7 @@ export class LoggerService {
 
   async getMessage(key: string) {
     const message: IMessage | undefined = await this.redisService.get(key);
+    console.log('Unknown error: ', key);
     if (!message) return Messages.unknownError;
     return message;
   }
@@ -39,7 +41,12 @@ export class LoggerService {
     );
   }
 
-  async handleError(error: IMessage | Error) {
+  async handleError(error: IMessage | Error | QueryFailedError) {
+    if (error instanceof QueryFailedError) {
+      // Database error
+      Response.badRequestThrow(await this.getMessage(error.driverError.code));
+    }
+
     if ((error as IMessage).code) Response.badRequestThrow(error as IMessage);
     await this.mattermostService.unCatchError(error);
     throw new InternalServerErrorException((error as Error).message);

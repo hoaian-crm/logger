@@ -46,5 +46,5 @@ export const Messages = {
   isEmail: {
     code: 106,
     description: 'Must be an email',
-  },
+  }
 };

@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { RedisDb, RedisModule } from 'crm-redis-client';
 import { MatterMostModule } from '../matttermost/mattermost.module';
 import { LoggerService } from './logger.service';
 
+@Global()
 @Module({
   imports: [
     RedisModule.register({
@@ -13,4 +14,4 @@ import { LoggerService } from './logger.service';
   providers: [LoggerService],
   exports: [LoggerService],
 })
-export class LoggerModule {}
+export class LoggerModule { }

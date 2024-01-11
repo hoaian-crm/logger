@@ -1,12 +1,14 @@
-import { ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Response } from 'crm-prototypes';
 import { AppModule } from './app.module';
 import { LoggerService } from './modules/logger/logger.service';
 
-export const configLogger = async () => {
-  const app = await NestFactory.create(AppModule);
-  await app.init();
+export const configLogger = async (app?: INestApplication) => {
+  if (!app) {
+    app = await NestFactory.create(AppModule);
+    await app.init();
+  }
 
   const service = app.get<LoggerService>(LoggerService);
 

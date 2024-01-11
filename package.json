@@ -1,8 +1,18 @@
 {
-  "name": "crm-logger",
-  "version": "1.0.6",
-  "description": "",
-  "author": "",
+  "name": "@hoaian-crm/logger",
+  "version": "1.0.9",
+  "description": "Manage log in system",
+  "author": {
+    "name": "Tran Hoai An",
+    "email": "hoaian412003@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoaian-crm/logger.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/hoaian-crm"
+  },
   "license": "UNLICENSED",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

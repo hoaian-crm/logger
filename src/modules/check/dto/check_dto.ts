@@ -1,6 +1,6 @@
-import { IsAlphanumeric } from 'class-validator';
+import { IsIP, IsString } from 'class-validator';
 
 export class CheckDto {
-  @IsAlphanumeric()
+  @IsIP()
   value: string;
 }

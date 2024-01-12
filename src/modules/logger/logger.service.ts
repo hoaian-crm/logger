@@ -1,13 +1,13 @@
 import {
   Injectable,
   InternalServerErrorException,
-  ValidationError,
 } from '@nestjs/common';
-import { IMessage, Response } from 'crm-prototypes';
-import { RedisService } from 'crm-redis-client';
+import { RedisService } from '@hoaian-crm/redis-client';
 import { Messages } from '../../config/messages';
 import { MattermostService } from '../matttermost/mattermost.service';
 import { QueryFailedError } from 'typeorm';
+import { IMessage, Response } from '@hoaian-crm/prototypes';
+import { ValidationError } from 'class-validator';
 
 @Injectable()
 export class LoggerService {
@@ -19,7 +19,6 @@ export class LoggerService {
   async getMessage(key: string) {
     const message: IMessage | undefined = await this.redisService.get(key);
     if (!message) {
-      await this.handleUnknowMessage(message);
       return Messages.unknownError
     };
     return message;
@@ -28,40 +27,68 @@ export class LoggerService {
   async handleErrors(errors: ValidationError[]): Promise<Array<IMessage>> {
     return await Promise.all(
       errors.map(async (error) => {
-        const key = Object.keys(error.constraints)[0];
-        const message = await this.getMessage(key);
-        return {
-          code: message.code,
-          description: message.description,
-          field: error.property,
-        };
+        return await this.handleError(error);
       }),
     );
   }
 
   async handleError(
-    error: IMessage | Error | QueryFailedError,
+    error: IMessage | Error | QueryFailedError | ValidationError,
     metadata?: { field: string },
   ) {
     if (error instanceof QueryFailedError) {
-      // Database error
-      const message = await this.getMessage(error.driverError.code);
-      Response.badRequestThrow({ ...message, ...metadata });
+      await this.handleQueryFailed(error, metadata);
     }
 
-    if ((error as IMessage).code) {
-      error = await this.getMessage((error as IMessage).code + '');
-      Response.badRequestThrow(error);
+    if (error instanceof IMessage) {
+      await this.handleDefaultMessage(error, metadata);
     }
+
+    if (error instanceof ValidationError) {
+      return await this.handleValidationError(error);
+    }
+
+    await this.handleUncatchMessage(error);
+  }
+
+  async handleDefaultMessage(error: IMessage, metadata: object = {}) {
+    const message = await this.getMessage(error.code + '');
+    if (message.code === 0) {
+      this.mattermostService.sendUnknownMessage(error)
+    }
+    Response.badRequestThrow({ ...message, ...metadata });
+  }
+
+  async handleQueryFailed(error: QueryFailedError, metadata: object = {}) {
+    const message = await this.getMessage(error.driverError.code);
+    if (!message) {
+      this.mattermostService.sendUnknownMessage({
+        type: "Postgres dirver",
+        [error.driverError.code]: error.message
+      })
+    }
+    Response.badRequestThrow({ ...message, ...metadata });
+  }
+
+  async handleValidationError(error: ValidationError) {
+    const key = Object.keys(error.constraints)[0];
+    const message = await this.getMessage(key);
+    if (message.code === 0) this.handleUnknowMessage(error.constraints);
+    return {
+      code: message.code,
+      description: message.description,
+      field: error.property,
+    };
+  }
+
+  async handleUncatchMessage(error: any) {
     await this.mattermostService.unCatchError(error);
     throw new InternalServerErrorException((error as Error).message);
   }
 
-  async handleUnknowMessage(message: IMessage) {
-    if (message.code === 0) {
-      // TODO: Handle send to mattermost web hook
-      await this.mattermostService.sendUnknownMessage(message);
-    }
+  async handleUnknowMessage(message: any) {
+    // TODO: Handle send to mattermost web hook
+    await this.mattermostService.sendUnknownMessage(message);
   }
 
   async sync() {

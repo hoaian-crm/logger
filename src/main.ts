@@ -3,9 +3,12 @@ import { NestFactory } from '@nestjs/core';
 import { Response } from 'crm-prototypes';
 import { AppModule } from './app.module';
 import { LoggerService } from './modules/logger/logger.service';
+import { LoggingInterceptor } from './modules/logger/logger.interceptor';
 
 export const sync = async () => {
   const app = await NestFactory.create(AppModule);
+
+  app.setGlobalPrefix("/api/v1")
 
   const service = app.get<LoggerService>(LoggerService);
   const validation = new ValidationPipe({
@@ -18,6 +21,7 @@ export const sync = async () => {
     stopAtFirstError: true,
   });
   app.useGlobalPipes(validation);
+  // app.useGlobalInterceptors(new LoggingInterceptor());
 
   await app.init();
 

@@ -13,4 +13,4 @@ import { LoggerModule } from './modules/logger/logger.module';
   ],
   controllers: [CheckController],
 })
-export class AppModule {}
+export class AppModule { }

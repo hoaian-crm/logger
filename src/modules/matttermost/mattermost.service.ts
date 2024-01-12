@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class MattermostService {
-  constructor() {}
+  constructor() { }
 
   async sendMessage(text: string) {
     return await fetch(process.env.MATTERMOST_WEB_HOOK, {

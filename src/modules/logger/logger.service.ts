@@ -14,12 +14,14 @@ export class LoggerService {
   constructor(
     private redisService: RedisService,
     private mattermostService: MattermostService,
-  ) {}
+  ) { }
 
   async getMessage(key: string) {
     const message: IMessage | undefined = await this.redisService.get(key);
-    console.log('Unknown error: ', key);
-    if (!message) return Messages.unknownError;
+    if (!message) {
+      await this.handleUnknowMessage(message);
+      return Messages.unknownError
+    };
     return message;
   }
 
@@ -28,10 +30,6 @@ export class LoggerService {
       errors.map(async (error) => {
         const key = Object.keys(error.constraints)[0];
         const message = await this.getMessage(key);
-        if (message.code === 0) {
-          // TODO: Handle send to mattermost web hook
-          await this.mattermostService.sendUnknownMessage(error.constraints);
-        }
         return {
           code: message.code,
           description: message.description,
@@ -51,9 +49,19 @@ export class LoggerService {
       Response.badRequestThrow({ ...message, ...metadata });
     }
 
-    if ((error as IMessage).code) Response.badRequestThrow(error as IMessage);
+    if ((error as IMessage).code) {
+      error = await this.getMessage((error as IMessage).code + '');
+      Response.badRequestThrow(error);
+    }
     await this.mattermostService.unCatchError(error);
     throw new InternalServerErrorException((error as Error).message);
+  }
+
+  async handleUnknowMessage(message: IMessage) {
+    if (message.code === 0) {
+      // TODO: Handle send to mattermost web hook
+      await this.mattermostService.sendUnknownMessage(message);
+    }
   }
 
   async sync() {

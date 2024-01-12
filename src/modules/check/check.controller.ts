@@ -6,7 +6,7 @@ import { CheckDto } from './dto/check_dto';
 
 @Controller('check')
 export class CheckController {
-  constructor(private loggerService: LoggerService) {}
+  constructor(private loggerService: LoggerService) { }
 
   @Get('/400')
   async check400() {

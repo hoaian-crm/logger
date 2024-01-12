@@ -15,11 +15,7 @@ export class CheckController {
 
   @Get('/500')
   async check500() {
-    try {
-      throw new Error('ngu ngoc');
-    } catch (error) {
-      await this.loggerService.handleError(error);
-    }
+    throw new Error('ngu ngoc');
   }
 
   @Post('/dto')

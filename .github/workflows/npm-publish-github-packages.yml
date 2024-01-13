@@ -31,7 +31,7 @@ jobs:
         uses: datamonsters/replace-action@v2
         with:
           files: mattermost.md
-          replacements: '$package_name=${{ steps.publish.outputs.name }},$package_version=${{ steps.publish.outputs.version }},$package_url=${{ steps.publish.outputs.registry }}'
+          replacements: '$package_name=${{ steps.publish.outputs.name }},$package_version=${{ steps.publish.outputs.version }},$package_url=https://www.npmjs.com/package/{{ steps.publish.outputs.id }}'
       - name: debug
         run: cat mattermost.md
       - name: Send
@@ -40,4 +40,6 @@ jobs:
       - uses: mattermost/action-mattermost-notify@master
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_NPM_WEBHOOK }}
+          MATTERMOST_USERNAME: NPM
+          MATTERMOST_ICON: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4sBpkEM37n9XC3pSAL8ZULGSEgMAKfku_FKwj7EZAYg&s
     

@@ -24,12 +24,12 @@ export class LoggerService {
     return message;
   }
 
-  async handleErrors(errors: ValidationError[]): Promise<Array<IMessage>> {
-    return await Promise.all(
+  async handleErrors(errors: ValidationError[]) {
+    Response.badRequestThrow(await Promise.all(
       errors.map(async (error) => {
         return await this.handleError(error);
       }),
-    );
+    ));
   }
 
   async handleError(

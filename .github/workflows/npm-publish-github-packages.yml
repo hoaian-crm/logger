@@ -40,7 +40,6 @@ jobs:
       - name: Send
         run: |
           echo {\"text\": \"$(cat mattermost.md)\"\} > mattermost.json
-          cat mattemost.json
       - uses: mattermost/action-mattermost-notify@master
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_NPM_WEBHOOK }}

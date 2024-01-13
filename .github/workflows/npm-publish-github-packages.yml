@@ -24,12 +24,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: download
+      - name: Downlad template file
         uses: wei/wget@v1
         with:
-          args: -O mattermost.hbs https://s3.relationc.com/mattermost/package-release.hbs
+          args: -O mattermost.hbs https://s3.relationc.com/mattermost/package-release.md
+      - name: Replace variable in template
+        uses: datamonsters/replace-action@v2
+        with:
+          files: mattermost.md
+          replacements: '$package_name=logger,$package_version=1.0.1,$package_url=http://localhost'
       - name: debug
-        run: cat mattermost.hbs
+        run: cat mattermost.md
   # mattermost-message:
   #   runs-on: ubuntu-latest
   #   steps:

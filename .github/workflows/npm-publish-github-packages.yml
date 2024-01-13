@@ -36,7 +36,7 @@ jobs:
         run: cat mattermost.md
       - name: Send
         run: |
-          echo {\"text\": \"$(cat mattermost.md)\"\} > mattermost.json
+          echo {\"text\": \""$(cat mattermost.md)"\"\} > mattermost.json
       - uses: mattermost/action-mattermost-notify@master
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_NPM_WEBHOOK }}

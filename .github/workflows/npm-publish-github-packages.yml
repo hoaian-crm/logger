@@ -29,7 +29,7 @@ jobs:
         with:
           args: -O mattermost.md https://s3.relationc.com/mattermost/package-release.md
       - name: Edit permission
-        run: chmod 777 package-release.md 
+        run: chmod 777 mattermost.md
       - name: Replace variable in template
         uses: datamonsters/replace-action@v2
         with:

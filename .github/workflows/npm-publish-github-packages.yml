@@ -41,4 +41,5 @@ jobs:
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_NPM_WEBHOOK }}
           MATTERMOST_USERNAME: npm
+          MATTERMOST_ICON: https://static-00.iconduck.com/assets.00/npm-icon-2048x2048-3xqnd60o.png
     

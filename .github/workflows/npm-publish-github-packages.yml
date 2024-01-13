@@ -31,7 +31,7 @@ jobs:
         uses: datamonsters/replace-action@v2
         with:
           files: mattermost.md
-          replacements: '$package_name=${{ steps.publish.outputs.name }},$package_version=${{ steps.publish.outputs.version }},$package_url=https://www.npmjs.com/package/{{ steps.publish.outputs.id }}'
+          replacements: '$package_name=${{ steps.publish.outputs.name }},$package_version=${{ steps.publish.outputs.version }},$package_url=https://www.npmjs.com/package/${{ steps.publish.outputs.id }}'
       - name: debug
         run: cat mattermost.md
       - name: Send

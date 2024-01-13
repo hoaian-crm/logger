@@ -37,27 +37,16 @@ jobs:
           replacements: '$package_name=logger,$package_version=1.0.1,$package_url=http://localhost'
       - name: debug
         run: cat mattermost.md
-  # mattermost-message:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: pedrolamas/handlebars-action@v2
-  #       with:
-  #         # Files to process
-  #         # Default: '**/*.template'
-  #         files: '**/*.template'
+  mattermost-notification:
+    runs-on: ubuntu-latest
+    needs: prepare-message
+    steps:
+      - uses: actions/checkout@v4
+      - name: Send
+        run: |
+          echo {\"text\": \"$(cat mattermost.md)\"\} > mattermost.json
+          cat mattemost.json
+      - uses: mattermost/action-mattermost-notify@master
+        env:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_NPM_WEBHOOK }}
       
-  #         # Output filename template
-  #         # Default: '{{ file.dir }}/{{ file.name }}'
-  #         output-filename: '{{ file.dir }}/{{ file.name }}'
-      
-  #         # Remove the input file
-  #         # Default: false
-  #         delete-input-file: true
-      
-  #         # HTML escape the rendered values
-  #         # Default: false
-  #         html-escape: false
-      
-  #         # Makes no real changes
-  #         # default: false
-  #         dry-run: false

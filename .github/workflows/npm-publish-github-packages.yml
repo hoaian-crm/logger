@@ -21,6 +21,8 @@ jobs:
       - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
+      - name: Debug package
+        run: echo ${{ steps.publish.outputs.name }}
       - name: Downlad template file
         uses: wei/wget@v1
         with:
@@ -31,7 +33,7 @@ jobs:
         uses: datamonsters/replace-action@v2
         with:
           files: mattermost.md
-          replacements: '$package_name=${{steps.publish.outputs.name}},$package_version=${{steps.publish.outputs.version}},$package_url=${{steps.publish.outputs.registry}}'
+          replacements: '$package_name=${{ steps.publish.outputs.name }},$package_version=${{ steps.publish.outputs.version }},$package_url=${{ steps.publish.outputs.registry }}'
       - name: debug
         run: cat mattermost.md
       - name: Send

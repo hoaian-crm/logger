@@ -20,7 +20,7 @@ jobs:
   #     - uses: JS-DevTools/npm-publish@v3
   #       with:
   #         token: ${{ secrets.NPM_TOKEN }}
-  prepare-message:
+  mattermost-notification:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,10 +37,6 @@ jobs:
           replacements: '$package_name=logger,$package_version=1.0.1,$package_url=http://localhost'
       - name: debug
         run: cat mattermost.md
-  mattermost-notification:
-    runs-on: ubuntu-latest
-    needs: prepare-message
-    steps:
       - uses: actions/checkout@v4
       - name: Send
         run: |
@@ -49,4 +45,4 @@ jobs:
       - uses: mattermost/action-mattermost-notify@master
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_NPM_WEBHOOK }}
-      
+    

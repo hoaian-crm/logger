@@ -8,18 +8,19 @@ on:
     branches: master
 
 jobs:
-  # publish:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "18"
-  #     - run: npm install
-  #     - run: npm run build
-  #     - uses: JS-DevTools/npm-publish@v3
-  #       with:
-  #         token: ${{ secrets.NPM_TOKEN }}
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        id: publish
+        with:
+          node-version: "18"
+      - run: npm install
+      - run: npm run build
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
   mattermost-notification:
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +35,7 @@ jobs:
         uses: datamonsters/replace-action@v2
         with:
           files: mattermost.md
-          replacements: '$package_name=logger,$package_version=1.0.1,$package_url=http://localhost'
+          replacements: '$package_name=${{steps.publish.outputs.name}},$package_version=${{steps.publish.outputs.version}},$package_url=${{steps.publish.outputs.registry}}'
       - name: debug
         run: cat mattermost.md
       - name: Send

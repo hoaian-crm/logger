@@ -27,9 +27,9 @@ jobs:
       - name: download
         uses: wei/wget@v1
         with:
-          args: -O sample.html https://httpbin.org/html
+          args: -O mattermost.hbs https://s3.relationc.com/mattermost/package-release.hbs
       - name: debug
-        run: cat sample.html
+        run: cat mattermost.hbs
   # mattermost-message:
   #   runs-on: ubuntu-latest
   #   steps:

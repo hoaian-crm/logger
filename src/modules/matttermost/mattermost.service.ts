@@ -36,13 +36,14 @@ export class MattermostService {
   }
 
   async unCatchError(error: Error) {
-    if (process.env.NODE_ENV === 'local') return; // Ignore send to mattermost if local
-    const gitBranch = process.env['BRANCHES.' + process.env.NODE_ENV]
-    const root = parse(error.stack || "")[0];
-    const githubUrl = process.env.npm_package_repository_url.replace(".git", "/") + "blob/" + gitBranch;
-    const gitFileDir = githubUrl + root.file.replace(process.cwd(), "") + "#L" + root.lineNumber;
-
-    // https://github.com/hoaian-crm/tag-service/blob/master/src/app.module.ts#L9
+    // if (process.env.NODE_ENV === 'local') return; // Ignore send to mattermost if local
+    let gitFileDir = "";
+    if (process.env.NODE_ENV !== "local") {
+      const gitBranch = process.env['BRANCHES.' + process.env.NODE_ENV]
+      const root = parse(error.stack || "")[0];
+      const githubUrl = process.env.npm_package_repository_url.replace(".git", "/") + "blob/" + gitBranch;
+      gitFileDir = githubUrl + root.file.replace(process.cwd(), "") + "#L" + root.lineNumber;
+    }
     return await this.sendMessage(this.templates['un_catch.hbs']({
       error: error.stack,
       service: process.env.npm_package_name + " - " + process.env.npm_package_version,

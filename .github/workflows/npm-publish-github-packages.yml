@@ -13,16 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
-        id: publish
         with:
           node-version: "18"
       - run: npm install
       - run: npm run build
       - uses: JS-DevTools/npm-publish@v3
+        id: publish
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: Debug package
-        run: echo ${{ steps.publish.outputs.name }}
       - name: Downlad template file
         uses: wei/wget@v1
         with:

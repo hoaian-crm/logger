@@ -8,15 +8,49 @@ on:
     branches: master
 
 jobs:
-  publish:
+  # publish:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "18"
+  #     - run: npm install
+  #     - run: npm run build
+  #     - uses: JS-DevTools/npm-publish@v3
+  #       with:
+  #         token: ${{ secrets.NPM_TOKEN }}
+  prepare-message:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - name: download
+        uses: wei/wget@v1
         with:
-          node-version: "18"
-      - run: npm install
-      - run: npm run build
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+          args: -O sample.html https://httpbin.org/html
+      - name: debug
+        run: cat sample.html
+  # mattermost-message:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: pedrolamas/handlebars-action@v2
+  #       with:
+  #         # Files to process
+  #         # Default: '**/*.template'
+  #         files: '**/*.template'
+      
+  #         # Output filename template
+  #         # Default: '{{ file.dir }}/{{ file.name }}'
+  #         output-filename: '{{ file.dir }}/{{ file.name }}'
+      
+  #         # Remove the input file
+  #         # Default: false
+  #         delete-input-file: true
+      
+  #         # HTML escape the rendered values
+  #         # Default: false
+  #         html-escape: false
+      
+  #         # Makes no real changes
+  #         # default: false
+  #         dry-run: false

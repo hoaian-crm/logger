@@ -37,7 +37,6 @@ jobs:
           replacements: '$package_name=logger,$package_version=1.0.1,$package_url=http://localhost'
       - name: debug
         run: cat mattermost.md
-      - uses: actions/checkout@v4
       - name: Send
         run: |
           echo {\"text\": \"$(cat mattermost.md)\"\} > mattermost.json

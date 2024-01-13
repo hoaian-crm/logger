@@ -36,6 +36,8 @@ export class LoggerService {
     error: IMessage | Error | QueryFailedError | ValidationError,
     metadata?: { field: string },
   ) {
+    console.error(error);
+
     if (error instanceof QueryFailedError) {
       await this.handleQueryFailed(error, metadata);
     }

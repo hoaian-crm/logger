@@ -1,9 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { Response } from 'crm-prototypes';
+import { Response } from '@hoaian-crm/prototypes';
 import { AppModule } from './app.module';
 import { LoggerService } from './modules/logger/logger.service';
-import { GlobalException } from './modules/logger/exception';
 import { ErrorsInterceptor } from './modules/logger/interceptors';
 
 export const sync = async () => {
@@ -15,8 +14,9 @@ export const sync = async () => {
   const validation = new ValidationPipe({
     whitelist: true,
     exceptionFactory: async (errors) => {
-      const result = await service.handleErrors(errors);
-      Response.badRequestThrow(result);
+      // const result = await service.handleErrors(errors);
+      // Response.badRequestThrow(result);
+      throw errors
     },
 
     stopAtFirstError: true,

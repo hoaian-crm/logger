@@ -40,12 +40,12 @@ export class LoggerService {
       await this.handleQueryFailed(error, metadata);
     }
 
-    if (error instanceof IMessage) {
-      await this.handleDefaultMessage(error, metadata);
-    }
-
     if (error instanceof ValidationError) {
       return await this.handleValidationError(error);
+    }
+
+    if ((error as IMessage).code !== undefined) {
+      await this.handleDefaultMessage((error as IMessage), metadata);
     }
 
     await this.handleUncatchMessage(error);
@@ -60,11 +60,11 @@ export class LoggerService {
   }
 
   async handleQueryFailed(error: QueryFailedError, metadata: object = {}) {
-    const message = await this.getMessage(error.driverError.code);
+    const message = await this.getMessage(error.driverError.name);
     if (!message) {
       this.mattermostService.sendUnknownMessage({
         type: "Postgres dirver",
-        [error.driverError.code]: error.message
+        [error.driverError.name]: error.message
       })
     }
     Response.badRequestThrow({ ...message, ...metadata });

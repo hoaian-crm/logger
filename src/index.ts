@@ -1,8 +1,9 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { Response } from 'crm-prototypes';
+import { Response } from '@hoaian-crm/prototypes';
 import { AppModule } from './app.module';
 import { LoggerService } from './modules/logger/logger.service';
+import { ErrorsInterceptor } from './modules/logger/interceptors';
 
 export const configLogger = async (app?: INestApplication) => {
   if (!app) {
@@ -21,6 +22,7 @@ export const configLogger = async (app?: INestApplication) => {
 
     stopAtFirstError: true,
   });
+  app.useGlobalInterceptors(new ErrorsInterceptor(service));
   return validation;
 };
 

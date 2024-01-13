@@ -10,7 +10,7 @@ export class CheckController {
 
   @Get('/400')
   async check400() {
-    Response.badRequestThrow(Messages.unknownError);
+    throw Messages.unknownError
   }
 
   @Get('/500')

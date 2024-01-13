@@ -1,6 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { Response } from '@hoaian-crm/prototypes';
+import { Response } from '@relationc/prototypes';
 import { AppModule } from './app.module';
 import { LoggerService } from './modules/logger/logger.service';
 import { ErrorsInterceptor } from './modules/logger/interceptors';

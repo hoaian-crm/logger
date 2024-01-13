@@ -2,11 +2,11 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { RedisService } from '@hoaian-crm/redis-client';
+import { RedisService } from '@relationc/redis-client';
 import { Messages } from '../../config/messages';
 import { MattermostService } from '../matttermost/mattermost.service';
 import { QueryFailedError } from 'typeorm';
-import { IMessage, Response } from '@hoaian-crm/prototypes';
+import { IMessage, Response } from '@relationc/prototypes';
 import { ValidationError } from 'class-validator';
 
 @Injectable()

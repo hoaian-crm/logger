@@ -408,43 +408,6 @@
     protobufjs "^7.2.4"
     yargs "^17.7.2"
 
-"@hoaian-crm/prototypes@^1.1.8":
-  version "1.1.8"
-  resolved "https://npm.pkg.github.com/download/@hoaian-crm/prototypes/1.1.8/6eb07bb6d17b60cdd8b6709cb78d1b12114d0477#6eb07bb6d17b60cdd8b6709cb78d1b12114d0477"
-  integrity sha512-ttI73v28GhrkNLrPO0zxAJz1rW7BWiQruYBxd79kq1Cm5i/l9gLgzA8Rol9PDdiyuZjAwoJry2Ah9N9F07UjwA==
-  dependencies:
-    protobufjs "^7.2.5"
-    typescript "^5.3.2"
-
-"@hoaian-crm/redis-client@^1.2.1":
-  version "1.2.1"
-  resolved "https://npm.pkg.github.com/download/@hoaian-crm/redis-client/1.2.1/718202540b33bbc7f8c914460caa81e2c6241066#718202540b33bbc7f8c914460caa81e2c6241066"
-  integrity sha512-aP72t5wgYwcrUQVJuQMbT9F2VpG/oFLX18TQrutEDZ0giaQVVPqIyeBQCkSsn5FmzTrobwCj8JdW+RlWgEGa4g==
-  dependencies:
-    "@grpc/grpc-js" "^1.9.12"
-    "@grpc/proto-loader" "^0.7.10"
-    "@nestjs/common" "^10.0.0"
-    "@nestjs/config" "^3.1.1"
-    "@nestjs/core" "^10.0.0"
-    "@nestjs/microservices" "^10.2.10"
-    "@nestjs/platform-express" "^10.0.0"
-    "@nestjs/typeorm" "^10.0.1"
-    "@types/aws-sdk" "^2.7.0"
-    amqp-connection-manager "^4.1.14"
-    amqplib "^0.10.3"
-    aws-sdk "^2.1506.0"
-    class-transformer "^0.5.1"
-    class-validator "^0.14.0"
-    crm-prototypes "^1.0.8"
-    handlebars "^4.7.8"
-    node-html-to-image "^4.0.0"
-    nodemailer "^6.9.7"
-    pg "^8.11.3"
-    reflect-metadata "^0.1.13"
-    rxjs "^7.8.1"
-    typeorm "^0.3.17"
-    uuid "^9.0.1"
-
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.14"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.14.tgz#d78e481a039f7566ecc9660b4ea7fe6b1fec442b"
@@ -986,6 +949,43 @@
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@redis/time-series/-/time-series-1.0.5.tgz#a6d70ef7a0e71e083ea09b967df0a0ed742bc6ad"
   integrity sha512-IFjIgTusQym2B5IZJG3XKr5llka7ey84fw/NOYqESP5WUfQs9zz1ww/9+qoz4ka/S6KcGBodzlCeZ5UImKbscg==
+
+"@relationc/prototypes@^1.1.8":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@relationc/prototypes/-/prototypes-1.1.9.tgz#42523ef6205702e14cb3230909f3ff162e0a99c4"
+  integrity sha512-I0ZB2peuKXWls64inISo3GXWM8ZLONs90r1ko8eN75MM3heOXHUXUzDUKcfYjKsPLBkcMuhg0x6G0eyWO+nn0g==
+  dependencies:
+    protobufjs "^7.2.5"
+    typescript "^5.3.2"
+
+"@relationc/redis-client@^1.2.1":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@relationc/redis-client/-/redis-client-1.2.2.tgz#611800b95e3d252985ba33bc9914a4aa578b3171"
+  integrity sha512-ADXbn30A/bHeHsj3YEjD1vpZGYZlxk6RVPWweC2c72VC7Df0h7l0blbt9UWQ3P8WjsAsZ6emfED2ucyLQqYCdg==
+  dependencies:
+    "@grpc/grpc-js" "^1.9.12"
+    "@grpc/proto-loader" "^0.7.10"
+    "@nestjs/common" "^10.0.0"
+    "@nestjs/config" "^3.1.1"
+    "@nestjs/core" "^10.0.0"
+    "@nestjs/microservices" "^10.2.10"
+    "@nestjs/platform-express" "^10.0.0"
+    "@nestjs/typeorm" "^10.0.1"
+    "@types/aws-sdk" "^2.7.0"
+    amqp-connection-manager "^4.1.14"
+    amqplib "^0.10.3"
+    aws-sdk "^2.1506.0"
+    class-transformer "^0.5.1"
+    class-validator "^0.14.0"
+    crm-prototypes "^1.0.8"
+    handlebars "^4.7.8"
+    node-html-to-image "^4.0.0"
+    nodemailer "^6.9.7"
+    pg "^8.11.3"
+    reflect-metadata "^0.1.13"
+    rxjs "^7.8.1"
+    typeorm "^0.3.17"
+    uuid "^9.0.1"
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"

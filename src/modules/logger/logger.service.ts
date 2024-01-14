@@ -61,12 +61,12 @@ export class LoggerService {
     Response.badRequestThrow({ ...message, ...metadata });
   }
 
-  async handleQueryFailed(error: QueryFailedError, metadata: object = {}) {
-    const message = await this.getMessage(error.driverError.name);
+  async handleQueryFailed(error: QueryFailedError<any>, metadata: object = {}) {
+    const message = await this.getMessage(error.driverError.code);
     if (!message || message.code === 0) {
       this.mattermostService.sendUnknownMessage({
         type: "Postgres dirver",
-        [error.driverError.name]: error.message
+        [error.driverError.code]: error.message
       })
     }
     Response.badRequestThrow({ ...message, ...metadata });

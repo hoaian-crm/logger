@@ -50,5 +50,9 @@ export const Messages = {
   "23505": {
     code: 23505,
     description: "Already exists"
+  },
+  isBoolean: {
+    code: 107,
+    description: "Must be boolean"
   }
 };

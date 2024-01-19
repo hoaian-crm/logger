@@ -28,7 +28,7 @@ export const sync = async () => {
 
   await service.sync();
   console.log('Sync message done');
-  // process.exit();
+  process.exit();
   app.listen(process.env.APP_PORT);
 };
 

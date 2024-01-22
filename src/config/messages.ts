@@ -54,5 +54,13 @@ export const Messages = {
   isBoolean: {
     code: 107,
     description: "Must be boolean"
+  },
+  isArray: {
+    code: 108,
+    description: 'Must be an array',
+  },
+  arrayMinSize: {
+    code: 109,
+    description: 'Must be at least $number element'
   }
 };

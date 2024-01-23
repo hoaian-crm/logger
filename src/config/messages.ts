@@ -66,5 +66,9 @@ export const Messages = {
   notFound: {
     code: 110,
     description: "Resource can't be found in system"
+  },
+  isObject: {
+    code: 111,
+    description: "Must be an object"
   }
 };

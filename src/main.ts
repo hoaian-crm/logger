@@ -14,8 +14,6 @@ export const sync = async () => {
   const validation = new ValidationPipe({
     whitelist: true,
     exceptionFactory: async (errors) => {
-      // const result = await service.handleErrors(errors);
-      // Response.badRequestThrow(result);
       throw errors
     },
 

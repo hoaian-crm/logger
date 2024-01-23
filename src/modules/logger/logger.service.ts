@@ -73,6 +73,9 @@ export class LoggerService {
   }
 
   async handleValidationError(error: ValidationError) {
+    if (!error.constraints && error.children) {
+      return this.handleValidationError(error.children[0])
+    }
     const key = Object.keys(error.constraints)[0];
     const message = await this.getMessage(key);
     if (message.code === 0) this.handleUnknowMessage(error.constraints);
@@ -97,6 +100,11 @@ export class LoggerService {
     await Promise.all(
       Object.keys(Messages).map(async (message) => {
         return await this.redisService.set(message, Messages[message]);
+      }),
+    );
+    await Promise.all(
+      Object.keys(Messages).map(async (message) => {
+        return await this.redisService.set(Messages[message].code + "", Messages[message]);
       }),
     );
   }

@@ -83,6 +83,7 @@ export class LoggerService {
       code: message.code,
       description: message.description,
       field: error.property,
+      target: error.target
     };
   }
 

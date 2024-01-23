@@ -36,7 +36,6 @@ export class MattermostService {
   }
 
   async unCatchError(error: Error) {
-    // if (process.env.NODE_ENV === 'local') return; // Ignore send to mattermost if local
     let gitFileDir = "";
     if (process.env.NODE_ENV !== "local") {
       const gitBranch = process.env['BRANCHES.' + process.env.NODE_ENV]

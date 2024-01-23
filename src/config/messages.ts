@@ -62,5 +62,9 @@ export const Messages = {
   arrayMinSize: {
     code: 109,
     description: 'Must be at least $number element'
+  },
+  notFound: {
+    code: 110,
+    description: "Resource can't be found in system"
   }
 };

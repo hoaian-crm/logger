@@ -27,5 +27,6 @@ export const configLogger = async (app?: INestApplication) => {
 
 export * from './modules/logger/logger.module';
 export * from './modules/logger/logger.service';
+export * from './modules/logger/exception';
+export * from './modules/logger/interceptors';
 export * from './config/messages';
-

@@ -37,6 +37,8 @@ export class LoggerService {
     metadata?: { field: string },
   ) {
 
+    console.error(error);
+
     if (error instanceof QueryFailedError) {
       await this.handleQueryFailed(error, metadata);
     }
@@ -49,7 +51,6 @@ export class LoggerService {
       await this.handleDefaultMessage((error as IMessage), metadata);
     }
 
-    console.error(error);
     await this.handleUncatchMessage(error);
   }
 
